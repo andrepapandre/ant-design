@@ -9,7 +9,10 @@ import ColorClear from './ColorClear';
 import ColorInput from './ColorInput';
 
 export interface PanelPickerProps
-  extends Pick<ColorPickerBaseProps, 'prefixCls' | 'colorCleared' | 'allowClear'> {
+  extends Pick<
+    ColorPickerBaseProps,
+    'prefixCls' | 'colorCleared' | 'allowClear' | 'disabledAlpha'
+  > {
   value?: Color;
   onChange?: (value?: Color, type?: HsbaColorType, pickColor?: boolean) => void;
   onChangeComplete?: (type?: HsbaColorType) => void;
@@ -22,6 +25,7 @@ const PanelPicker: FC = () => {
     colorCleared,
     allowClear,
     value,
+    disabledAlpha,
     onChange,
     onClear,
     onChangeComplete,
@@ -44,10 +48,17 @@ const PanelPicker: FC = () => {
       <RcColorPicker
         prefixCls={prefixCls}
         value={value?.toHsb()}
+        disabledAlpha={disabledAlpha}
         onChange={(colorValue, type) => onChange?.(colorValue, type, true)}
         onChangeComplete={onChangeComplete}
       />
-      <ColorInput value={value} onChange={onChange} prefixCls={prefixCls} {...injectProps} />
+      <ColorInput
+        value={value}
+        onChange={onChange}
+        prefixCls={prefixCls}
+        disabledAlpha={disabledAlpha}
+        {...injectProps}
+      />
     </>
   );
 };
